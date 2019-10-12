@@ -1,5 +1,7 @@
 package revolut.backend.datastore
 
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.instance
 import com.natpryce.hamkrest.absent
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
@@ -8,10 +10,15 @@ import kotlin.random.Random
 
 class TestAccountStore {
 
+    private fun createStore() =
+        Kodein {
+            import(datastoreModule)
+        }.instance<AccountStore>()
+
     @Test
     fun testGetMissingAccount() {
         // Arrange
-        val store: AccountStore = AccountStoreImpl()
+        val store = createStore()
 
         // Act
         val account = store.getAccountById(0L)
@@ -25,7 +32,7 @@ class TestAccountStore {
         // Arrange
         val name = "SomeName"
         val balance = Random.nextInt(500,10000)
-        val store: AccountStore = AccountStoreImpl()
+        val store = createStore()
 
         // Act
         val accountId = store.createNewAccount(name, balance)
@@ -39,7 +46,7 @@ class TestAccountStore {
     @Test
     fun testCreateAccountHasUniqueIds() {
         // Arrange
-        val store: AccountStore = AccountStoreImpl()
+        val store = createStore()
 
         // Act
         val accountIds = (1..100)

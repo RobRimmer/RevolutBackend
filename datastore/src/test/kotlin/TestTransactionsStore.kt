@@ -1,17 +1,27 @@
 package revolut.backend.datastore
 
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.bind
+import com.github.salomonbrys.kodein.instance
+import com.github.salomonbrys.kodein.singleton
 import com.natpryce.hamkrest.absent
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
+import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.Test
 import kotlin.random.Random
 
 class TestTransactionStore {
 
+    private fun createStore() =
+        Kodein {
+            import(datastoreModule)
+        }.instance<TransactionStore>()
+
     @Test
     fun testGetMissingTransaction() {
         // Arrange
-        val store: TransactionStore = TransactionStoreImpl()
+        val store = createStore()
 
         // Act
         val transaction = store.getTransactionById(0L)
@@ -25,7 +35,7 @@ class TestTransactionStore {
         // Arrange
         val details = "SomeTransaction"
         val accountIds = listOf(1L,2L)
-        val store: TransactionStore = TransactionStoreImpl()
+        val store = createStore()
 
         // Act
         val transactionId = store.createNewTransaction(accountIds, details)
@@ -39,7 +49,7 @@ class TestTransactionStore {
     @Test
     fun testCreateTransactionHasUniqueIds() {
         // Arrange
-        val store: TransactionStore = TransactionStoreImpl()
+        val store = createStore()
 
         // Act
         val transactionIds = (1..100)
@@ -56,7 +66,7 @@ class TestTransactionStore {
     @Test
     fun testGetTransactionByAccount() {
         // Arrange
-        val store: TransactionStore = TransactionStoreImpl()
+        val store = createStore()
         val accounts12 = store.createNewTransaction(listOf(1L,2L), "acc: 1 & 2")
         val accounts23 = store.createNewTransaction(listOf(2L,3L), "acc: 2 & 3")
         val accounts13 = store.createNewTransaction(listOf(1L,3L), "acc: 1 & 3")
