@@ -1,7 +1,7 @@
 package revolut.backend.datastore
 
-// Accounts store
-interface AccountsStore {
+// Account store
+interface AccountStore {
     // Get account by ID
     fun getAccountById(id: AccountId) : Account?
     // Create an account

@@ -6,12 +6,12 @@ import com.natpryce.hamkrest.equalTo
 import org.junit.jupiter.api.Test
 import kotlin.random.Random
 
-class TestAccountsStore {
+class TestAccountStore {
 
     @Test
     fun testGetMissingAccount() {
         // Arrange
-        val store: AccountsStore = AccountsStoreImpl()
+        val store: AccountStore = AccountStoreImpl()
 
         // Act
         val account = store.getAccountById(0L)
@@ -25,7 +25,7 @@ class TestAccountsStore {
         // Arrange
         val name = "SomeName"
         val balance = Random.nextInt(500,10000)
-        val store: AccountsStore = AccountsStoreImpl()
+        val store: AccountStore = AccountStoreImpl()
 
         // Act
         val accountId = store.createNewAccount(name, balance)
@@ -39,7 +39,7 @@ class TestAccountsStore {
     @Test
     fun testCreateAccountHasUniqueIds() {
         // Arrange
-        val store: AccountsStore = AccountsStoreImpl()
+        val store: AccountStore = AccountStoreImpl()
 
         // Act
         val accountIds = (1..100)

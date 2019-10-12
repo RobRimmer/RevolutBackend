@@ -1,3 +1,5 @@
 package revolut.backend.datastore
 
-data class Account(val id: Long, val name: String, val balance: Int)
+typealias AccountId = Long
+
+data class Account(val id: AccountId, val name: String, val balance: Int)
