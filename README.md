@@ -15,5 +15,6 @@ The following items would be coded in an enterprise solution but are omitted fro
 - There is no logging
 #### Datastore
 - Data model is used in both API and datastore, this creates  a coupling which I would normally break by creating a Data Abstraction Layer.  This has been omitted for simplicity
-- Services do not perform error checks (null names, negative balance, etc).  These checks would be done early in the service and 
+- Services do not perform error checks (null names, negative balance, etc).  These checks would be done early in the service and
 - Datastore is clearly too simplistic for an enterprise solution.
+- Transactions, using a suitable DB, transactions would be supported to prevent partial transactions (eg taking funds from source account but failing to add them to the target account)

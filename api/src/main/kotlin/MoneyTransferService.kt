@@ -6,9 +6,10 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import revolut.backend.datastore.AccountId
 import revolut.backend.datastore.AccountStore
+import revolut.backend.datastore.TransactionStore
 
 val moneyTransferServiceModule = Kodein.Module {
-    bind<MoneyTransferService>() with singleton { MoneyTransferServiceImpl(instance()) }
+    bind<MoneyTransferService>() with singleton { MoneyTransferServiceImpl(instance(), instance()) }
 }
 
 // Service for transferring money between accounts
@@ -17,16 +18,15 @@ interface MoneyTransferService {
     fun transferFunds(from: AccountId, to: AccountId, amount: Int)
 }
 
-private class MoneyTransferServiceImpl(private val accountStore: AccountStore) : MoneyTransferService {
+private class MoneyTransferServiceImpl(private val accountStore: AccountStore, private val transactionStore: TransactionStore) : MoneyTransferService {
     override fun transferFunds(from: AccountId, to: AccountId, amount: Int) {
-        // TODO - check for various errors
-        // Remove funds
-        val accountFrom = accountStore.getAccountById(from)
-        val accountTo = accountStore.getAccountById(to)
+        val accountFrom = accountStore.getAccountById(from) ?: throw AccountNotFoundException(from)
+        val accountTo = accountStore.getAccountById(to) ?: throw AccountNotFoundException(to)
         if (accountFrom != null && accountTo != null) {
             accountStore.modifyAccountBalance(from, accountFrom.balance - amount)
-            accountStore.modifyAccountBalance(to, accountFrom.balance + amount)
+            accountStore.modifyAccountBalance(to, accountTo.balance + amount)
         }
+        transactionStore.createNewTransaction(listOf(from,to), "Transfer $amount from $from to $to")
     }
 }
 
