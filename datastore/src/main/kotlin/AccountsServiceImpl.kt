@@ -1,10 +1,9 @@
 package revolut.backend.datastore
 
-import revolut.backend.datastore.Account
-import revolut.backend.datastore.AccountsService
-
 class AccountsServiceImpl : AccountsService {
+    var nextId = 0L
+
     override fun createNewAccount(name: String, initialBalance: Int): Account {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Account(nextId++, name, initialBalance)
     }
 }
