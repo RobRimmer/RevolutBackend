@@ -1,3 +1,6 @@
+# TODO
+- locking on stores
+
 # Revolut Backend
 Revolut Backend coding test
 

@@ -6,11 +6,13 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
+import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
+import revolut.backend.datastore.Account
 import revolut.backend.datastore.AccountStore
 import kotlin.random.Random
 
@@ -30,7 +32,10 @@ class TestMoneyTransferService {
         val amount = 50
         val start1 = 100
         val start2 = 100
-        val mockAccountStore = mock<AccountStore>()
+        val mockAccountStore = mock<AccountStore>{
+            on {getAccountById(from)} doReturn Account(from, "name", start1)
+            on {getAccountById(to)} doReturn Account(to, "name", start2)
+        }
         val service = createService(mockAccountStore)
 
         // Act
