@@ -1,16 +1,14 @@
 package revolut.backend.api
 
+import io.vertx.ext.web.RoutingContext
 import org.kodein.di.Kodein
-import uy.klutter.config.typesafe.ClassResourceConfig
-import uy.klutter.config.typesafe.ReferenceConfig
-import uy.klutter.config.typesafe.kodein.importConfig
-import uy.klutter.config.typesafe.loadConfig
-import uy.klutter.vertx.kodein.KodeinVertx
-import uy.kohesive.kovert.vertx.boot.KodeinKovertVertx
-import uy.kohesive.kovert.vertx.boot.KovertVerticleModule
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.singleton
 
 val moneyTransferControllerModule = Kodein.Module("MoneyTransferControllerModule") {
+    bind() from singleton { MoneyTransferController() }
 }
 
 class MoneyTransferController {
+    fun RoutingContext.getStringById(id: String) = id + 100
 }

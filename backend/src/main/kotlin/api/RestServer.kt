@@ -5,6 +5,7 @@ import nl.komponents.kovenant.functional.bind
 import org.kodein.di.Kodein
 import org.kodein.di.conf.global
 import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -13,13 +14,14 @@ import uy.klutter.config.typesafe.ReferenceConfig
 import uy.klutter.config.typesafe.kodein.importConfig
 import uy.klutter.config.typesafe.loadConfig
 import uy.klutter.vertx.kodein.KodeinVertx
+import uy.kohesive.kovert.vertx.bindController
 import uy.kohesive.kovert.vertx.boot.KodeinKovertVertx
 import uy.kohesive.kovert.vertx.boot.KovertVerticle
 import uy.kohesive.kovert.vertx.boot.KovertVerticleModule
 import uy.kohesive.kovert.vertx.boot.KovertVertx
 
 val restServerModule = Kodein.Module("RestServerModule") {
-    bind() from singleton { RestServer() }
+    bind() from singleton { RestServer(instance()) }
     import(kovertModule)
 }
 private val kovertModule = Kodein.Module("KovertModule") {
@@ -33,8 +35,10 @@ private val kovertModule = Kodein.Module("KovertModule") {
     import(KovertVerticleModule.module)
 }
 
-class RestServer {
-    private val initControllers = fun Router.() {}
+class RestServer(moneyTransferController: MoneyTransferController) {
+    private val initControllers = fun Router.() {
+        bindController(moneyTransferController, "api")
+    }
 
     companion object {
         private val LOG: Logger = LoggerFactory.getLogger(RestServer::class.java)
