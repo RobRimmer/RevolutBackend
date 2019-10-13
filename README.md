@@ -1,5 +1,6 @@
 # TODO
 - locking on stores
+- post , not put
 
 # Revolut Backend
 Revolut Backend coding test

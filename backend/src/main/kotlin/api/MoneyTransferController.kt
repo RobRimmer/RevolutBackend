@@ -10,5 +10,8 @@ val moneyTransferControllerModule = Kodein.Module("MoneyTransferControllerModule
 }
 
 class MoneyTransferController {
+    companion object {
+        const val route = "transfer"
+    }
     fun RoutingContext.getStringById(id: String) = id + 100
 }

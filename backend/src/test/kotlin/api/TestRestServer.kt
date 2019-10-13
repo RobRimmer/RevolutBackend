@@ -14,6 +14,7 @@ class TestRestServer {
     private fun createServer() =
         Kodein {
             import(restServerModule)
+            import(createAccountControllerModule)
             import(moneyTransferControllerModule)
         }.direct.instance<RestServer>()
 
