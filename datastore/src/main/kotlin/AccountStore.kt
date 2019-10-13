@@ -33,7 +33,9 @@ private class AccountStoreImpl : AccountStore {
     }
 
     override fun modifyAccountBalance(id: AccountId, newBalance: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       if (accounts.containsKey(id)){
+           accounts[id] = accounts[id]!!.changeBalance(newBalance)
+       }
     }
 
 }

@@ -2,9 +2,32 @@
 - locking on stores
 - post , not put
 - transfer fails on controller test
+- tx service part of accounts service
 
 # Revolut Backend
 Revolut Backend coding test
+
+## Usage
+By default, REST server listens on port 8123, this can be configured in the file kovert.conf (deployed with app)
+Run _test_app, app.kt, fun main<br>
+APIs can be tested using curl (or Postmaster)<br>
+Ctrl-C will quit the app<br>
+The API urls are<br>
+#### Create Account
+PUT /api/account/create/:name/:initialBalance<br>
+:name - Account name (String)<br>
+:initialBalance - Initial balance of account (Int) (represents pennies/cents)
+returns: AccountId (Long)
+#### Get Account
+GET /api/accounts/details/:accountId<br>
+:accountId - Id of account as returned by create above (Long)<br>
+return: Account object (Json)<br>
+#### Transfer funds
+PUT /api/account/transfer/:from/:to/:amount<br>
+:from - ID of account to take money from (Long)<br>
+:to - ID of account to send money to (Long)<br>
+:amount: Amount in pennies/cents (Int)<br>
+returns: Transaction ID
 
 ## Comments
 I have tried to find the balance between the absolute simplest implementation that fulfils the spec (ie TDD/Agile) and a solution that represents my ability as a developer of enterprise products.<br>
