@@ -9,16 +9,13 @@ import org.kodein.di.generic.singleton
 import revolut.backend.api.RestServer
 import revolut.backend.api.accountControllerModule
 import revolut.backend.api.restServerModule
-import revolut.backend.backendModule
+import revolut.backend.services.AccountService
 import revolut.backend.services.MoneyTransferService
-import revolut.datastore.AccountStore
-import revolut.datastore.TransactionStore
 
 object ControllerTestHelper {
     private var serverStarted = false
 
-    val accountStore = mock<AccountStore>()
-    val transactionStore = mock<TransactionStore>()
+    val accountService = mock<AccountService>()
     val moneyTransferService = mock<MoneyTransferService>()
 
     fun startServer() {
@@ -28,8 +25,7 @@ object ControllerTestHelper {
                     import(accountControllerModule)
                     import(restServerModule)
                     bind() from singleton { moneyTransferService }
-                    bind() from singleton { accountStore } // TODO - replace with service
-                    bind() from singleton { transactionStore }
+                    bind() from singleton { accountService }
                 }.direct
 
                 println("Creating REST server")

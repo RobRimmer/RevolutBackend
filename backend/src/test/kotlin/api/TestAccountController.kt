@@ -34,7 +34,7 @@ class TestAccountController {
 
             // Assert
             assertThat("Success", response.statusCode, equalTo(200))
-            verify(ControllerTestHelper.accountStore).createNewAccount(testCase.name, testCase.initialBalance)
+            verify(ControllerTestHelper.accountService).createNewAccount(testCase.name, testCase.initialBalance)
         }
     }
 
@@ -48,7 +48,7 @@ class TestAccountController {
             Account(1L, "Name2", 0),
             Account(2L, "Name3", 200)
         )
-        ControllerTestHelper.accountStore.stub {
+        ControllerTestHelper.accountService.stub {
             on { getAccountById(0L) } doReturn accounts[0]
             on { getAccountById(1L) } doReturn accounts[1]
             on { getAccountById(2L) } doReturn accounts[2]
