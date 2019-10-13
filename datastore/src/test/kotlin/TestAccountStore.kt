@@ -1,11 +1,12 @@
 package revolut.datastore
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.instance
+import org.kodein.di.Kodein
 import com.natpryce.hamkrest.absent
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import org.junit.jupiter.api.Test
+import org.kodein.di.direct
+import org.kodein.di.generic.instance
 import kotlin.random.Random
 
 class TestAccountStore {
@@ -13,7 +14,7 @@ class TestAccountStore {
     private fun createStore() =
         Kodein {
             import(datastoreModule)
-        }.instance<AccountStore>()
+        }.direct.instance<AccountStore>()
 
     @Test
     fun testGetMissingAccount() {

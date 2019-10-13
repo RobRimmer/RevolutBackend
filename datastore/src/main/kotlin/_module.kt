@@ -1,8 +1,8 @@
 package revolut.datastore
 
-import com.github.salomonbrys.kodein.Kodein
+import org.kodein.di.Kodein
 
-val datastoreModule = Kodein.Module {
+val datastoreModule = Kodein.Module("DatastoreModule") {
     import(transactionStoreModule)
     import(accountStoreModule)
 }

@@ -1,9 +1,8 @@
 package revolut.backend.services
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.instance
-import com.github.salomonbrys.kodein.singleton
+import org.kodein.di.Kodein
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.singleton
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.nhaarman.mockitokotlin2.argThat
@@ -13,6 +12,8 @@ import com.nhaarman.mockitokotlin2.verify
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
+import org.kodein.di.direct
+import org.kodein.di.generic.instance
 import revolut.datastore.Account
 import revolut.datastore.AccountStore
 import revolut.datastore.TransactionStore
@@ -25,7 +26,7 @@ class TestMoneyTransferService {
             import(moneyTransferServiceModule)
             bind() from singleton { accountStore ?: mock() }
             bind() from singleton { transactionStore ?: mock() }
-        }.instance<MoneyTransferService>()
+        }.direct.instance<MoneyTransferService>()
 
     private val accountFrom = 0L
     private val accountTo = 1L

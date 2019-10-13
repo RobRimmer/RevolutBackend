@@ -1,10 +1,10 @@
 package revolut.datastore
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.singleton
+import org.kodein.di.Kodein
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.singleton
 
-val transactionStoreModule = Kodein.Module {
+val transactionStoreModule = Kodein.Module("TransactionStoreModule") {
     bind<TransactionStore>() with singleton { TransactionStoreImpl() }
 }
 
