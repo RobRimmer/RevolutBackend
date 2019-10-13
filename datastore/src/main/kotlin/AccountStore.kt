@@ -1,4 +1,4 @@
-package revolut.backend.datastore
+package revolut.datastore
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind

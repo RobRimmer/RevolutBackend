@@ -1,6 +1,6 @@
-rootProject.name = "revolut.backend"
+rootProject.name = "revolut"
 include("_test_app")
-include("api")
+include("backend")
 include("model")
 include("datastore")
 

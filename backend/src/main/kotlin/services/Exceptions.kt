@@ -1,6 +1,6 @@
-package revolut.backend.api
+package revolut.backend.services
 
-import revolut.backend.datastore.AccountId
+import revolut.datastore.AccountId
 
 abstract class ApiException(message: String, cause: Throwable? = null) : Throwable(message, cause)
 

@@ -1,4 +1,4 @@
-package revolut.backend.api
+package revolut.backend.services
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
@@ -6,12 +6,16 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.argThat
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
-import revolut.backend.datastore.*
-import kotlin.check
+import revolut.datastore.Account
+import revolut.datastore.AccountStore
+import revolut.datastore.TransactionStore
 import kotlin.test.assertFails
 
 class TestMoneyTransferService {
@@ -44,8 +48,8 @@ class TestMoneyTransferService {
             verify(mockAccountStore).modifyAccountBalance(accountFrom, testCase.finalFrom)
             verify(mockAccountStore).modifyAccountBalance(accountTo, testCase.finalTo)
             verify(mockTransactionStore).createNewTransaction(
-                argThat { containsAll(listOf(accountFrom,accountTo))},
-                argThat { contains("Transfer")})
+                argThat { containsAll(listOf(accountFrom, accountTo)) },
+                argThat { contains("Transfer") })
         }
     }
 

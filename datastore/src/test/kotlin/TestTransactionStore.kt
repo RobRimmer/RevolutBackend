@@ -1,15 +1,11 @@
-package revolut.backend.datastore
+package revolut.datastore
 
 import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
-import com.github.salomonbrys.kodein.singleton
 import com.natpryce.hamkrest.absent
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.Test
-import kotlin.random.Random
 
 class TestTransactionStore {
 
@@ -34,7 +30,7 @@ class TestTransactionStore {
     fun testCreateTransaction() {
         // Arrange
         val details = "SomeTransaction"
-        val accountIds = listOf(1L,2L)
+        val accountIds = listOf(1L, 2L)
         val store = createStore()
 
         // Act
@@ -55,9 +51,9 @@ class TestTransactionStore {
         val transactionIds = (1..100)
             .map {
                 val details = "SomeTransaction $it"
-                val accountIds = listOf(1L,2L)
+                val accountIds = listOf(1L, 2L)
                 store.createNewTransaction(accountIds, details)
-        }
+            }
 
         // Assert
         assertThat("ids are unique", transactionIds.distinct().size, equalTo(transactionIds.size))
@@ -67,9 +63,9 @@ class TestTransactionStore {
     fun testGetTransactionByAccount() {
         // Arrange
         val store = createStore()
-        val accounts12 = store.createNewTransaction(listOf(1L,2L), "acc: 1 & 2")
-        val accounts23 = store.createNewTransaction(listOf(2L,3L), "acc: 2 & 3")
-        val accounts13 = store.createNewTransaction(listOf(1L,3L), "acc: 1 & 3")
+        val accounts12 = store.createNewTransaction(listOf(1L, 2L), "acc: 1 & 2")
+        val accounts23 = store.createNewTransaction(listOf(2L, 3L), "acc: 2 & 3")
+        val accounts13 = store.createNewTransaction(listOf(1L, 3L), "acc: 1 & 3")
 
         // Act
         val result1 = store.getTransactions(1L)
@@ -78,9 +74,9 @@ class TestTransactionStore {
         val result4 = store.getTransactions(4L)
 
         // Assert
-        assertThat("account 1", result1.toList(), List<TransactionId>::containsAll, listOf(accounts12,accounts13))
-        assertThat("account 2", result2.toList(), List<TransactionId>::containsAll, listOf(accounts12,accounts23))
-        assertThat("account 3", result3.toList(), List<TransactionId>::containsAll, listOf(accounts13,accounts23))
+        assertThat("account 1", result1.toList(), List<TransactionId>::containsAll, listOf(accounts12, accounts13))
+        assertThat("account 2", result2.toList(), List<TransactionId>::containsAll, listOf(accounts12, accounts23))
+        assertThat("account 3", result3.toList(), List<TransactionId>::containsAll, listOf(accounts13, accounts23))
         assertThat("account 4", result4.toList(), equalTo(emptyList()))
     }
 }

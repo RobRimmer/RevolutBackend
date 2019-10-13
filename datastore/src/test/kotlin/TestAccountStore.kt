@@ -1,4 +1,4 @@
-package revolut.backend.datastore
+package revolut.datastore
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.instance
@@ -31,7 +31,7 @@ class TestAccountStore {
     fun testCreateAccount() {
         // Arrange
         val name = "SomeName"
-        val balance = Random.nextInt(500,10000)
+        val balance = Random.nextInt(500, 10000)
         val store = createStore()
 
         // Act
@@ -51,10 +51,10 @@ class TestAccountStore {
         // Act
         val accountIds = (1..100)
             .map {
-            val name = "SomeName $it"
-            val balance = Random.nextInt(500,10000)
-            store.createNewAccount(name, balance)
-        }
+                val name = "SomeName $it"
+                val balance = Random.nextInt(500, 10000)
+                store.createNewAccount(name, balance)
+            }
 
         // Assert
         assertThat("ids are unique", accountIds.distinct().size, equalTo(accountIds.size))

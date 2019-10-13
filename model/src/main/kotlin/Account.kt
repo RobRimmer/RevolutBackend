@@ -1,4 +1,4 @@
-package revolut.backend.datastore
+package revolut.datastore
 
 typealias AccountId = Long
 
