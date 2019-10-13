@@ -66,6 +66,24 @@ class TestAccountController {
             assertThat("Balance $it", content["balance"].toString(), equalTo(accounts[it].balance.toString()))
         }
     }
+
+    @Test
+    fun testSuccessfulTransfer() {
+        // Arrange
+        val accountFrom = 0L
+        val accountTo = 1L
+        val amount = 100
+        ControllerTestHelper.startServer()
+        val url = "$baseUrl/transfer/$accountFrom/$accountTo/$amount"
+
+        // Act
+        val response = khttp.put(url)
+
+        // Assert
+        assertThat("Success", response.statusCode, equalTo(200))
+        verify(ControllerTestHelper.moneyTransferService).transferFunds(accountFrom, accountTo, amount)
+    }
+
 }
 
 

@@ -7,15 +7,16 @@ import org.junit.jupiter.api.Test
 import org.kodein.di.Kodein
 import org.kodein.di.direct
 import org.kodein.di.generic.instance
+import revolut.backend.backendModule
+import revolut.datastore.datastoreModule
 import kotlin.test.assertFails
 
 class TestRestServer {
 
     private fun createServer() =
         Kodein {
-            import(restServerModule)
-            import(createAccountControllerModule)
-            import(moneyTransferControllerModule)
+            import(backendModule)
+            import(datastoreModule)
         }.direct.instance<RestServer>()
 
     @Test

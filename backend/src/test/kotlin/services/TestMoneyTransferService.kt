@@ -33,7 +33,7 @@ class TestMoneyTransferService {
 
     @TestFactory
     fun testSuccessfulTransfers() = testCases.map { testCase ->
-        DynamicTest.dynamicTest("${testCase.name}") {
+        DynamicTest.dynamicTest(testCase.name) {
             // Arrange
             val mockAccountStore = mock<AccountStore> {
                 on { getAccountById(accountFrom) } doReturn Account(accountFrom, "name", testCase.initialFrom)

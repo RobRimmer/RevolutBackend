@@ -7,7 +7,10 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 import revolut.backend.api.RestServer
+import revolut.backend.api.accountControllerModule
+import revolut.backend.api.restServerModule
 import revolut.backend.backendModule
+import revolut.backend.services.MoneyTransferService
 import revolut.datastore.AccountStore
 import revolut.datastore.TransactionStore
 
@@ -16,13 +19,16 @@ object ControllerTestHelper {
 
     val accountStore = mock<AccountStore>()
     val transactionStore = mock<TransactionStore>()
+    val moneyTransferService = mock<MoneyTransferService>()
 
     fun startServer() {
         synchronized(serverStarted) {
             if (!serverStarted) {
                 val kodein = Kodein {
-                    import(backendModule)
-                    bind() from singleton { accountStore }
+                    import(accountControllerModule)
+                    import(restServerModule)
+                    bind() from singleton { moneyTransferService }
+                    bind() from singleton { accountStore } // TODO - replace with service
                     bind() from singleton { transactionStore }
                 }.direct
 

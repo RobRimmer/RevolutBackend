@@ -21,7 +21,7 @@ import uy.kohesive.kovert.vertx.boot.KovertVerticleModule
 import uy.kohesive.kovert.vertx.boot.KovertVertx
 
 val restServerModule = Kodein.Module("RestServerModule") {
-    bind() from singleton { RestServer(instance(), instance()) }
+    bind() from singleton { RestServer(instance()) }
     import(kovertModule)
 }
 private val kovertModule = Kodein.Module("KovertModule") {
@@ -35,23 +35,20 @@ private val kovertModule = Kodein.Module("KovertModule") {
     import(KovertVerticleModule.module)
 }
 
-class RestServer(
-    accountController: AccountController,
-    moneyTransferController: MoneyTransferController
-) {
+class RestServer(accountController: AccountController) {
     companion object {
         const val route = "api"
         private val LOG: Logger = LoggerFactory.getLogger(RestServer::class.java)
+
+        init {
+            Kodein.global.addImport(kovertModule)
+        }
     }
 
     private val initControllers = fun Router.() {
         bindController(accountController, "$route/${AccountController.route}")
-        bindController(moneyTransferController, "$route/${MoneyTransferController.route}")
     }
 
-    init {
-        Kodein.global.addImport(kovertModule)
-    }
 
     fun start() = KovertVertx.start() bind { vertx ->
         KovertVerticle.deploy(vertx, routerInit = initControllers)

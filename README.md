@@ -1,6 +1,8 @@
 # TODO
 - locking on stores
 - post , not put
+- accounts service,. not direct controller-DS
+- transfer fails on controller test
 
 # Revolut Backend
 Revolut Backend coding test
