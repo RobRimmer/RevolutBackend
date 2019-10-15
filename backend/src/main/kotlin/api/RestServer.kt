@@ -24,6 +24,7 @@ val restServerModule = Kodein.Module("RestServerModule") {
     bind() from singleton { RestServer(instance()) }
     import(kovertModule)
 }
+
 private val kovertModule = Kodein.Module("KovertModule") {
     val config = ClassResourceConfig("/kovert.conf", RestServer::class.java)
     importConfig(loadConfig(config, ReferenceConfig())) {

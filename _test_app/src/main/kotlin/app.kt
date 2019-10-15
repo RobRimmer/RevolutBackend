@@ -18,4 +18,5 @@ fun main() {
     println("REST server started: ${promise.get()}")
     println()
     println("Kill console (Ctrl-C) to quit")
+    // Kovert framework doesn't like to quit unless killed, there is no programmatic "stop" function
 }
