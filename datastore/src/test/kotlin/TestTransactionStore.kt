@@ -1,10 +1,10 @@
 package revolut.datastore
 
-import org.kodein.di.Kodein
 import com.natpryce.hamkrest.absent
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import org.junit.jupiter.api.Test
+import org.kodein.di.Kodein
 import org.kodein.di.direct
 import org.kodein.di.generic.instance
 

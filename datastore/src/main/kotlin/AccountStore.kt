@@ -33,9 +33,9 @@ private class AccountStoreImpl : AccountStore {
     }
 
     override fun modifyAccountBalance(id: AccountId, newBalance: Int) {
-       if (accounts.containsKey(id)){
-           accounts[id] = accounts[id]!!.changeBalance(newBalance)
-       }
+        if (accounts.containsKey(id)) {
+            accounts[id] = accounts[id]!!.changeBalance(newBalance)
+        }
     }
 
 }

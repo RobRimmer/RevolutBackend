@@ -1,5 +1,3 @@
-package revolut.backend.services
-
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.natpryce.hamkrest.assertion.assertThat

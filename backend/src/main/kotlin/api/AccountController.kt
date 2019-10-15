@@ -5,16 +5,14 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
-import revolut.backend.services.AccountNotFoundException
 import revolut.backend.services.AccountService
 import revolut.backend.services.MoneyTransferService
 import revolut.datastore.AccountId
-import revolut.datastore.AccountStore
 import uy.kohesive.kovert.core.HttpErrorBadRequest
 import uy.kohesive.kovert.core.HttpErrorNotFound
 
 val accountControllerModule = Kodein.Module("AccountControllerModule") {
-    bind() from singleton { AccountController(instance(),instance()) }
+    bind() from singleton { AccountController(instance(), instance()) }
 }
 
 class AccountController(
@@ -33,7 +31,7 @@ class AccountController(
     // Get an account by ID
     fun RoutingContext.getDetailsById(id: AccountId) =
         try {
-        accountService.getAccountById(id) ?: throw HttpErrorNotFound()
+            accountService.getAccountById(id) ?: throw HttpErrorNotFound()
         } catch (ex: Throwable) {
             // Convert errors (account not found) into valid HTTP error
             throw HttpErrorBadRequest()

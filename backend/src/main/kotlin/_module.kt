@@ -7,8 +7,8 @@ import revolut.backend.services.accountServiceModule
 import revolut.backend.services.moneyTransferServiceModule
 
 val backendModule = Kodein.Module("BackendModule") {
-     import(moneyTransferServiceModule)
-     import(accountServiceModule)
-     import(accountControllerModule)
-     import(restServerModule)
+    import(moneyTransferServiceModule)
+    import(accountServiceModule)
+    import(accountControllerModule)
+    import(restServerModule)
 }

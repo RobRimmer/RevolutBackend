@@ -1,15 +1,16 @@
-# TODO
-- transfer fails on controller test
-
 # Revolut Backend
 Revolut Backend coding test<br>
 Built on Windows PC using intellij & jdk-10
 
 ## Usage
-By default, REST server listens on port 8123, this can be configured in the file kovert.conf (deployed with app)
-Run _test_app, app.kt, fun main()<br>
-APIs can be tested using curl (or Postmaster)<br>
+### API test
+There is a unit test at _test_app, IntegrationTests<br>
+This exercises the endpoints, this will run from intellij (for example) and starts its own REST server (ie it does not require the app to be run first)<br><br> 
+### Application
+Run _test_app, app.kt, fun main(), this will start the server and allow manual tusting<br>
 Ctrl-C will quit the app<br>
+By default, REST server listens on port 8123, this can be configured in the file kovert.conf (deployed with app)<br>
+APIs can be tested using curl (or Postmaster)<br>
 The API urls are<br>
 #### Create Account
 PUT /api/account/create/:name/:initialBalance<br>
@@ -42,6 +43,6 @@ The following improvements were not coded due to lack of familiarity with the RE
 - Data (such as transfer details) should be POST as json body rather than PUT
 #### Datastore
 - Data model is used in both API and datastore, this creates  a coupling which I would normally break by creating a Data Abstraction Layer.  This has been omitted for simplicity
-- Services do not perform error checks (null names, negative balance, etc).  These checks would be done early in the service and
+- Services do not perform error checks (null names, negative balance, etc).  These checks would be done early in the service and return the appropriate errors to the user.
 - Datastore is clearly too simplistic for an enterprise solution.
 - Transactions, using a suitable DB, transactions would be supported to prevent partial transactions (eg taking funds from source account but failing to add them to the target account)
